@@ -75,24 +75,6 @@ Consistent naming makes automation and role policies simpler.
 
 ---
 
-## Required roles & grants (high level)
-
-* `ACCOUNTADMIN` (reserved — limited personnel)
-* `SYSADMIN` — used for object creation and ownership
-* `DATA_ENGINEER_ROLE` — owned by engineering team; needs create/usage on warehouses & databases
-* `ETL_SERVICE_ROLE` — used by CICD/ETL tools; granted USAGE on DBs & OPERATE on specific warehouses
-* `ANALYST_ROLE` — read-only on curated schemas/tables
-
-Example minimal grants (conceptual):
-
-```sql
-GRANT USAGE ON DATABASE GOLD_DB TO ROLE ANALYST_ROLE;
-GRANT SELECT ON ALL TABLES IN SCHEMA GOLD_DB.analytics TO ROLE ANALYST_ROLE;
-GRANT USAGE ON WAREHOUSE WH_REPORTING TO ROLE ANALYST_ROLE;
-```
-
----
-
 ## Quick setup — SQL snippets
 
 Create a database, schema and a warehouse (example):
@@ -115,42 +97,6 @@ GRANT USAGE ON WAREHOUSE WH_TRANSFORM TO ROLE DATA_ENGINEER_ROLE;
 ```
 
 Add schema/table ownership and secure views according to your governance policy.
-
----
-
-## Environment / CI-CD notes
-
-* Keep environment-specific names in your infra-as-code (Terraform/CloudFormation/Ansible) or in CI variables.
-* CI/CD (e.g., GitHub Actions) should run provisioning under a service role with least privilege (ETL_SERVICE_ROLE).
-* Store Snowflake credentials and key material in your secret manager (Vault/GCP Secret Manager/Secrets Manager).
-
-Suggested GitHub Actions steps:
-
-1. `validate` — lint SQL/dbt
-2. `plan` — preview infra changes (if using Terraform)
-3. `apply` — create DB/schema/warehouse using infra tool or run SQL as deployment user
-
----
-
-## Best practices
-
-* Use separate databases per environment (dev/qa/prod).
-* Use auto-suspend to save costs.
-* Monitor warehouse credits and set alerts (Aceldata / Snowflake Resource Monitors).
-* Version-control DDL and keep migrations in the repo.
-* Use role-based access control for service accounts.
-
----
-
-## Troubleshooting & contacts
-
-* If objects fail to create: check `SYSADMIN` ownership and your role privileges.
-* For cost spikes: inspect `WAREHOUSE` usage history and queued queries.
-
-**Owners/Contacts:**
-
-* Data Engineering Team: `data-eng@example.com`
-* Platform Owner: `platform@example.com`
 
 ---
 
