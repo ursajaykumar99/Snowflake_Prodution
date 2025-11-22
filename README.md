@@ -28,39 +28,58 @@ Use this README as the single source of truth for on-boarding, provisioning, and
 
 ---
 
-## Snowflake resources
+Snowflake resources
+Databases & Schemas
 
-### Databases & Schemas
+Below are the databases and schemas currently provisioned for the EDW environments:
 
-Below is the canonical list of databases and schemas used in the platform. Adjust names if your org uses a different naming prefix.
+Production
 
-* `RAW_DB`
+EDW_PRODUCTION_DB
 
-  * `RAW_DB.public` — landing raw data (do not transform here)
-  * `RAW_DB.metadata` — ingestion metadata and audit tables
-* `BRONZE_DB`
+EDW_PROD_LANDING_SC
 
-  * `BRONZE_DB.events` — first-stage cleansed/normalized data
-  * `BRONZE_DB.staging` — staging tables used by ETL jobs
-* `SILVER_DB`
+EDW_PROD_BRONZE_SC
 
-  * `SILVER_DB.transforms` — business logic transformations
-  * `SILVER_DB.dimensions` — dimension tables
-* `GOLD_DB`
+EDW_PROD_SILVER_SC
 
-  * `GOLD_DB.analytics` — curated tables for BI and ML
-  * `GOLD_DB.aggr` — aggregated, materialized results
+EDW_PROD_GOLD_SC
 
-> Replace the `*_DB` placeholders with your environment prefix (e.g. `dev_raw`, `qa_bronze`, `prod_gold`) when provisioning per environment.
+Development
 
-### Warehouses
+EDW_DEVELOPMENT_DB
+
+EDW_DEV_LANDING_SC
+
+EDW_DEV_BRONZE_SC
+
+EDW_DEV_SILVER_SC
+
+EDW_DEV_GOLD_SC
+
+Quality Analysis (QA)
+
+EDW_QUALITY_ANALYSIS_DB
+
+EDW_QA_LANDING_SC
+
+EDW_QA_BRONZE_SC
+
+EDW_QA_SILVER_SC
+
+EDW_QA_GOLD_SC
+
+Warehouses
 
 Recommended warehouses for different workloads (example sizes are suggestions — tune to workload & cost):
 
-* `WH_LOAD_SMALL` — size `X-SMALL`, auto-suspend `60s` — for small ingestion jobs
-* `WH_LOAD_MEDIUM` — size `MEDIUM`, auto-suspend `120s`, multi-cluster auto-scale `OFF` — for regular batch loads
-* `WH_TRANSFORM` — size `LARGE`, auto-suspend `300s`, auto-scale `ECONOMY` — for dbt/SQL transformations
-* `WH_REPORTING` — size `X-LARGE`, auto-suspend `600s`, auto-scale `STANDARD` — for BI/concurrent queries
+WH_LOAD_SMALL — size X-SMALL, auto-suspend 60s — for small ingestion jobs
+
+WH_LOAD_MEDIUM — size MEDIUM, auto-suspend 120s, multi-cluster auto-scale OFF — for regular batch loads
+
+WH_TRANSFORM — size LARGE, auto-suspend 300s, auto-scale ECONOMY — for dbt/SQL transformations
+
+WH_REPORTING — size X-LARGE, auto-suspend 600s, auto-scale STANDARD — for BI/concurrent queries
 
 ---
 
