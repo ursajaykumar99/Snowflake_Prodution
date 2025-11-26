@@ -1,3 +1,8 @@
+/*
+I have taken the source tables from the Snowflake dummy database and recreated them with sample data for this project. 
+These tables were used only for development, testing, and demonstration purposes.
+*/
+
 USE DATABASE EDW_DEVELOPMENT_DB;
 USE SCHEMA EDW_DEV_LANDING_SC;
 CREATE TABLE LND_CUS_CUSTOMER AS SELECT * FROM SNOWFLAKE_SAMPLE_DATA.TPCH_SF10.CUSTOMER;
